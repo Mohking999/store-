@@ -68,6 +68,7 @@ Copy `.dev.vars.example` to `.dev.vars`:
 ```bash
 cp .dev.vars.example .dev.vars
 ```
+Replace the example `JWT_SECRET` with a unique, random value for local development. Never use that local value in production.
 
 ### Step 3: Run Database Migrations Locally
 ```bash
@@ -114,7 +115,7 @@ The seed script provides sample repair records for local development. Seeded use
 ```bash
 npx wrangler d1 create phone-repair-db
 ```
-*Note down the returned `database_id` and update it in `wrangler.jsonc` under `d1_databases[0].database_id`.*
+Copy the returned UUID into `d1_databases[0].database_id` in `wrangler.jsonc`, replacing the placeholder value. Wrangler cannot deploy or apply remote migrations while the placeholder remains.
 
 ### 2. Apply Migrations to Remote D1
 ```bash
@@ -131,6 +132,7 @@ npx wrangler r2 bucket create phone-repair-attachments
 npx wrangler secret put JWT_SECRET
 npx wrangler secret put TURNSTILE_SECRET_KEY
 ```
+Set `JWT_SECRET` to a newly generated, unique random secret; do not reuse a development or previously exposed value. Wrangler prompts for each secret without adding it to `wrangler.jsonc`.
 
 ### 5. Deploy Worker
 ```bash
