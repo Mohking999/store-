@@ -162,9 +162,8 @@ Tests cover:
    ```
 
 ### Deploying the Frontend to Vercel:
-1. Connect your Git repository to **Vercel**.
-2. Set **Root Directory** to `frontend`.
-3. Set **Framework Preset** to `Vite`.
-4. Use `npm run build` as the build command and `dist` as the output directory.
-5. The public landing page can be deployed without environment variables. To enable staff dashboards, add `VITE_API_BASE_URL` with the deployed Worker API URL, for example `https://your-backend-worker.workers.dev/api/v1`.
-6. Deploy.
+1. Import the repository into **Vercel** and leave **Root Directory** at the repository root. The root `vercel.json` defines a Vercel `frontend` service rooted at `frontend/`.
+2. Vercel builds the Vite frontend service independently with `npm run build` and serves its `dist` output. The top-level rewrite routes all paths to this service so client-side routes work.
+3. The public landing page can be deployed without environment variables. To enable staff dashboards, set `VITE_API_BASE_URL` in Vercel to the deployed Cloudflare Worker API base URL, including `/api/v1` (for example, `https://your-worker.example.workers.dev/api/v1`). This is a Vite build-time variable and the browser calls the Worker directly.
+4. The backend remains deployed separately on Cloudflare Workers. It is not a Vercel service because its database and file storage depend on Cloudflare D1 and R2 bindings. There are no Vercel service bindings; the static frontend cannot access server-side bindings.
+5. Deploy the Cloudflare backend and Vercel frontend independently. The landing page does not call the backend.

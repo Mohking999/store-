@@ -32,11 +32,10 @@ The build is written to `frontend/dist`.
 
 ## Deploy to Vercel
 
-1. Import the repository into Vercel.
-2. Set **Root Directory** to `frontend` (enable **Include files outside the Root Directory** only if Vercel requires it for repository settings; the frontend has its own package manifest and lockfile).
-3. Select **Vite** as the framework preset. Use `npm run build` as the build command and `dist` as the output directory. Vercel can install from `frontend/package-lock.json` with `npm install` (or `npm ci`).
-4. Deploy. The public landing page works without environment variables.
-5. To enable the retained staff dashboards, add `VITE_API_BASE_URL` in the Vercel project's environment variables for each required environment, using the deployed backend API origin and `/api/v1` path (for example, `https://your-worker.example.workers.dev/api/v1`). Do not use the local `.env.example` URL in production.
+1. Import the repository into Vercel and keep **Root Directory** at the repository root. The root `vercel.json` defines a Vite service with `frontend/` as its root and routes all public paths to it.
+2. The public landing page works without environment variables. To enable the retained staff dashboards, set `VITE_API_BASE_URL` in the Vercel project's environment variables for each required environment to the deployed Cloudflare Worker API base URL, including `/api/v1` (for example, `https://your-worker.example.workers.dev/api/v1`). This is a Vite build-time variable; the browser calls the Worker directly. Do not use the local `.env.example` URL in production.
+3. The backend remains a separate Cloudflare Workers deployment because it requires Cloudflare D1 and R2 bindings. It is not included as a Vercel service, and no Vercel service binding is used.
+4. Deploy the backend and frontend independently. The landing-page form is a mock and does not submit customer details.
 
 The frontend repair request form is a mock and does not submit customer details. Configure real contact information and the WhatsApp phone number in `src/pages/HomePage.tsx` before publishing.
 
