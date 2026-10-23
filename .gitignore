@@ -1,0 +1,10 @@
+# Root .gitignore for Phone Repair Platform
+node_modules/
+.DS_Store
+*.log
+*.tsbuildinfo
+.env
+.dev.vars
+dist/
+.wrangler/
+coverage/

@@ -1,0 +1,12 @@
+{
+  "name": "phone-repair-platform",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Phone Repair Management Platform for Algeria (Two Independent Folders: frontend & backend)",
+  "scripts": {
+    "dev:backend": "npm --prefix backend run dev",
+    "dev:frontend": "npm --prefix frontend run dev",
+    "build:frontend": "npm --prefix frontend run build",
+    "test:backend": "npm --prefix backend test"
+  }
+}
